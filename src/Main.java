@@ -2,12 +2,12 @@ import java.util.*;
 import java.time.*;
 
 // Class 1: Table
-class Table {
+class Table1 {
     int tableNumber;
     int capacity;
     String category;
 
-    Table(int tableNumber, int capacity, String category) {
+    Table1(int tableNumber, int capacity, String category) {
         this.tableNumber = tableNumber;
         this.capacity = capacity;
         this.category = category;
@@ -15,16 +15,16 @@ class Table {
 }
 
 // Class 2: Reservation
-class Reservation {
+class Reservation1 {
     int reservationId;
     String customerName;
     LocalDate date;
     LocalTime time;
     int guests;
-    Table table;
+    Table1 table;
 
-    Reservation(int id, String name, LocalDate date,
-                LocalTime time, int guests, Table table) {
+    Reservation1(int id, String name, LocalDate date,
+                LocalTime time, int guests, Table1 table) {
 
         this.reservationId = id;
         this.customerName = name;
@@ -38,26 +38,26 @@ class Reservation {
 // Class 3: Restaurant
 class Restaurant {
 
-    ArrayList<Table> tables = new ArrayList<>();
-    ArrayList<Reservation> reservations = new ArrayList<>();
+    ArrayList<Table1> tables = new ArrayList<>();
+    ArrayList<Reservation1> reservations = new ArrayList<>();
 
     int nextId = 101;
 
     Restaurant() {
-        tables.add(new Table(1, 2, "Indoor"));
-        tables.add(new Table(2, 4, "Indoor"));
-        tables.add(new Table(3, 4, "Outdoor"));
-        tables.add(new Table(4, 6, "Indoor"));
-        tables.add(new Table(5, 8, "Outdoor"));
+        tables.add(new Table1(1, 2, "Indoor"));
+        tables.add(new Table1(2, 4, "Indoor"));
+        tables.add(new Table1(3, 4, "Outdoor"));
+        tables.add(new Table1(4, 6, "Indoor"));
+        tables.add(new Table1(5, 8, "Outdoor"));
     }
 
     // Check overlapping reservations
-    boolean isAvailable(Table table, LocalDate date,
+    boolean isAvailable(Table1 table, LocalDate date,
                         LocalTime time, int excludeId) {
 
         LocalTime endTime = time.plusHours(2);
 
-        for (Reservation r : reservations) {
+        for (Reservation1 r : reservations) {
 
             if (r.reservationId == excludeId)
                 continue;
@@ -83,7 +83,7 @@ class Restaurant {
 
         System.out.println("\nAvailable Tables:");
 
-        for (Table t : tables) {
+        for (Table1 t : tables) {
             if (isAvailable(t, date, time, -1)) {
                 System.out.println(
                     "Table: " + t.tableNumber +
@@ -98,9 +98,9 @@ class Restaurant {
     void reserveTable(String name, LocalDate date,
                       LocalTime time, int guests) {
 
-        Table selected = null;
+        Table1 selected = null;
 
-        for (Table t : tables) {
+        for (Table1 t : tables) {
 
             if (t.capacity >= guests
                     && (selected == null
@@ -116,7 +116,7 @@ class Restaurant {
             return;
         }
 
-        Reservation r = new Reservation(
+        Reservation1 r = new Reservation1(
             nextId++, name, date, time, guests, selected
         );
 
@@ -133,7 +133,7 @@ class Restaurant {
     // Search reservation
     void searchReservation(int id) {
 
-        for (Reservation r : reservations) {
+        for (Reservation1 r : reservations) {
 
             if (r.reservationId == id) {
                 displayReservation(r);
@@ -148,13 +148,13 @@ class Restaurant {
     void modifyReservation(int id, LocalDate date,
                            LocalTime time, int guests) {
 
-        for (Reservation r : reservations) {
+        for (Reservation1 r : reservations) {
 
             if (r.reservationId == id) {
 
-                Table selected = null;
+                Table1 selected = null;
 
-                for (Table t : tables) {
+                for (Table1 t : tables) {
 
                     if (t.capacity >= guests
                             && (selected == null
@@ -186,11 +186,11 @@ class Restaurant {
     // Cancel reservation
     void cancelReservation(int id) {
 
-        Iterator<Reservation> iterator = reservations.iterator();
+        Iterator<Reservation1> iterator = reservations.iterator();
 
         while (iterator.hasNext()) {
 
-            Reservation r = iterator.next();
+            Reservation1 r = iterator.next();
 
             if (r.reservationId == id) {
                 iterator.remove();
@@ -203,7 +203,7 @@ class Restaurant {
     }
 
     // Display reservation details
-    void displayReservation(Reservation2 r) {
+    void displayReservation(Reservation1 r) {
 
         System.out.println("\nReservation Details");
         System.out.println("ID: " + r.reservationId);
